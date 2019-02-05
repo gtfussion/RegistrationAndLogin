@@ -1,0 +1,162 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model RegistrationAndLogin.Models.UserDb
+
+<head>
+    <title>Full Screen Enroll Form Responsive Widget Template :: w3layouts</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="Full Screen Enroll Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+    </script>
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
+    <link rel="stylesheet" href="~/eventregister1/css/style.css" type="text/css" media="all" />
+    <!-- Style-CSS -->
+    <link rel="stylesheet" href="~/eventregister1/css/font-awesome.min.css">
+    <!-- Font-Awesome-Icons-CSS -->
+    <!-- //css files -->
+    <!-- web-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext"
+          rel="stylesheet">
+    <!-- //web-fonts -->
+</head>
+<body>
+
+
+    <div class="form-horizontal">
+       
+        <div class="main-w3ls">
+            <div class="left-content">
+                <div class="w3ls-content">
+                    <!-- logo -->
+                    <h1>
+                        <a href="index.html"><span class="fa fa-magic"></span>Full Screen Enroll Form</a>
+                    </h1>
+                    <!-- //logo -->
+                    <h2>Sed do eiusmod tempor incidunut labore.</h2>
+                    <a href="#" class="button-w3ls">
+                        <span class="fa fa-long-arrow-right"></span>
+                    </a>
+                    <ul class="nav-w3ls">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                        <li>
+                            <a href="#">LogIn</a>
+                        </li>
+                        <li>
+                            <a href="#">LogOut</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- copyright -->
+                <div class="copyright">
+                    <p>
+                        &copy; 2018 Full Screen Enroll Form. All rights reserved | Design by
+                        <a href="http://w3layouts.com">W3layouts</a>
+                    </p>
+                </div>
+                <!-- //copyright -->
+            </div>
+            <div class="right-form-agile">
+                <div class="sub-main-w3">
+                    <h3>Signup Now</h3>
+                    <h5>Creating an account is free..</h5>
+                    <p>and won't take longer than a couple os seconds</p>
+
+                    @using (Html.BeginForm("Registration", "User", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-style-agile">
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <span class="fa fa-user"></span>
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "pom-agile" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-style-agile">
+                            <span class="fa fa-envelope-open"></span>
+                            @Html.LabelFor(model => model.EmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "pom-agile" } })
+                                @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        if (ViewBag.emailexist != null)
+                        {
+                            <div class="form-style-agile">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <label class="alert-success">@ViewBag.emailexist</label>
+                                </div>
+                            </div>
+
+                        }
+
+                        <div class="form-style-agile">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <span class="fa fa-key"></span>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "pom-agile" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-style-agile">
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <span class="fa fa-key"></span>
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "pom-agile" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-style-agile">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Submit" class="btn btn-default" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-style-agile">
+                            <div class="col-md-offset-2 col-md-10">
+                                <label class="alert-success">@ViewBag.success</label>
+                            </div>
+                        </div>
+                        
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+</body>
