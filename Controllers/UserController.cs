@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using RegistrationAndLogin.Models;
 using System.Net;
 using System.Web.Security;
+using System.Web.Helpers;
 
 namespace RegistrationAndLogin.Controllers
 {
@@ -18,7 +19,7 @@ namespace RegistrationAndLogin.Controllers
             {
                 return View(db.UserDbs.ToList());
             }
-            
+
         }
         [HttpGet]
         public ActionResult Registration()
@@ -32,13 +33,18 @@ namespace RegistrationAndLogin.Controllers
             {
                 #region//Email is already Exist
                 var isExist = IsEmailExist(u.EmailID);
-                if(isExist)
+                if (isExist)
                 {
-                    ViewBag.emailexist="email already exist";
+                    ViewBag.emailexist = "email already exist";
                     return View(u);
                 }
                 #endregion
             }
+
+            #region //Password hashing
+            /*u.Password = Crypto.Hash(u.Password);
+            u.ConfirmPassword = Crypto.Hash(u.ConfirmPassword);*/
+            #endregion
             #region //save to database
             using (MVCEntities dc = new MVCEntities())
             {
@@ -46,8 +52,8 @@ namespace RegistrationAndLogin.Controllers
                 dc.SaveChanges();
             }
             #endregion
-            ViewBag.success="registered successful";
-                return View(u);
+            ViewBag.success = "registered successful";
+            return View(u);
         }
         public bool IsEmailExist(string emailID)
         {
@@ -58,7 +64,7 @@ namespace RegistrationAndLogin.Controllers
             }
         }
 
-        
+
         [HttpGet]
         public ActionResult LogIn()
         {
@@ -67,26 +73,62 @@ namespace RegistrationAndLogin.Controllers
         [HttpPost]
         public ActionResult LogIn(UserDb u)
         {
-            using (MVCEntities dc = new MVCEntities())
+            #region password validation
+            /*using (MVCEntities dc = new MVCEntities())
             {
-                bool isValid = dc.UserDbs.Any(x => x.EmailID == u.EmailID && x.Password == u.Password);
-                if (isValid)
+                var v = dc.UserDbs.Where(a => a.EmailID == u.EmailID).FirstOrDefault();
+                if (v != null)
                 {
-                    FormsAuthentication.SetAuthCookie(u.EmailID, false);
-                    return RedirectToAction("Index","Employees");
 
 
+                    if (string.Compare(Crypto.Hash(u.Password), v.Password) == 0)
+                    {
+                        int timeout = u.RememberMe ? 525600 : 20; // 525600 min = 1 year
+                        var ticket = new FormsAuthenticationTicket(u.EmailID, u.RememberMe, timeout);
+                        string encrypted = FormsAuthentication.Encrypt(ticket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookie.HttpOnly = true;
+                        Response.Cookies.Add(cookie);
+
+                        return RedirectToAction("Index", "Employees", new { username = u.UserName });
+                    }
                 }
                 ModelState.AddModelError("", "Invalid username and passoword");
-                return View();
+                return View();*/
+            #endregion
+
+            using (MVCEntities dc = new MVCEntities())
+                 {
+                     bool isValid = dc.UserDbs.Any(x => x.EmailID == u.EmailID && x.Password == u.Password);
+                     if (isValid)
+                     {
+                         Session["username"] = u.EmailID;
+
+                            int timeout = u.RememberMe ? 525600 : 20; // 525600 min = 1 year
+                            var ticket = new FormsAuthenticationTicket(u.EmailID, u.RememberMe, timeout);
+                            string encrypted = FormsAuthentication.Encrypt(ticket);
+                            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                            cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                            cookie.HttpOnly = true;
+                            Response.Cookies.Add(cookie);
+
+                    FormsAuthentication.SetAuthCookie(u.EmailID, false);
+                         return RedirectToAction("Index","Employees",new { username = u.UserName });
+
+
+                     }
+                     ModelState.AddModelError("", "Invalid username and passoword");
+                     return View();
             }
         }
 
-       
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("LogIn");
+
+
+            public ActionResult Logout()
+            {
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Registration");
+            }
         }
     }
-}

@@ -4,22 +4,26 @@
 }
 
 @model RegistrationAndLogin.Models.UserDb
+  
 
 <head>
-    <title>Full Screen Enroll Form Responsive Widget Template :: w3layouts</title>
+    <title>Register</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
     <meta name="keywords" content="Full Screen Enroll Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
     <script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
     </script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <!-- Meta tag Keywords -->
     <!-- css files -->
     <link rel="stylesheet" href="~/eventregister1/css/style.css" type="text/css" media="all" />
@@ -36,7 +40,7 @@
 
 
     <div class="form-horizontal">
-       
+
         <div class="main-w3ls">
             <div class="left-content">
                 <div class="w3ls-content">
@@ -45,33 +49,24 @@
                         <a href="index.html"><span class="fa fa-magic"></span>Full Screen Enroll Form</a>
                     </h1>
                     <!-- //logo -->
-                    <h2>Sed do eiusmod tempor incidunut labore.</h2>
+                    <h2>Get information about your Employees.</h2>
                     <a href="#" class="button-w3ls">
                         <span class="fa fa-long-arrow-right"></span>
                     </a>
                     <ul class="nav-w3ls">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">About Us</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                        <li>
-                            <a href="#">LogIn</a>
-                        </li>
-                        <li>
-                            <a href="#">LogOut</a>
-                        </li>
+
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                       
+
+
                     </ul>
                 </div>
                 <!-- copyright -->
                 <div class="copyright">
                     <p>
                         &copy; 2018 Full Screen Enroll Form. All rights reserved | Design by
-                        <a href="http://w3layouts.com">W3layouts</a>
+                        <a href="http://w3layouts.com">Prashant</a>
                     </p>
                 </div>
                 <!-- //copyright -->
@@ -80,34 +75,35 @@
                 <div class="sub-main-w3">
                     <h3>Signup Now</h3>
                     <h5>Creating an account is free..</h5>
-                    <p>and won't take longer than a couple os seconds</p>
+                    <p>and won't take longer than a couple of seconds</p>
 
                     @using (Html.BeginForm("Registration", "User", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="form-style-agile">
-                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="form-group">
+                            
                             <div class="col-md-10">
                                 <span class="fa fa-user"></span>
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "pom-agile" } })
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
                                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-style-agile">
-                            <span class="fa fa-envelope-open"></span>
-                            @Html.LabelFor(model => model.EmailID, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "pom-agile" } })
-                                @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                           
+                           <div class="col-md-10">
+                             <span class="fa fa-envelope-open"></span>
+
+                             @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
+                              @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         if (ViewBag.emailexist != null)
                         {
-                            <div class="form-style-agile">
+                            <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <label class="alert-success">@ViewBag.emailexist</label>
                                 </div>
@@ -115,25 +111,25 @@
 
                         }
 
-                        <div class="form-style-agile">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="form-group">
+                           
                             <div class="col-md-10">
                                 <span class="fa fa-key"></span>
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "pom-agile" } })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-style-agile">
-                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="form-group">
+                           
                             <div class="col-md-10">
                                 <span class="fa fa-key"></span>
-                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "pom-agile" } })
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-style-agile">
+                        <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Submit" class="btn btn-default" />
                             </div>
@@ -141,22 +137,78 @@
 
 
 
-                        <div class="form-style-agile">
+                        <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <label class="alert-success">@ViewBag.success</label>
                             </div>
                         </div>
-                        
+
+
+
                     }
 
-
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <p style="float:left">Already Have Account</p><a style="float:right;cursor:pointer;color:white"onclick="SignIn()">Sign In</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+    @*Design pop up for login form*@
+   
+            
+    <div class="container">
+        <div class="modal fade" id="myModal">
+
+             <div class="modal-dialog">
+              
+               <div class="modal-content">
+                     <div class="modal-header">
+                         <a href="#" class="close" data-dismiss="modal">&times;</a>
+                         <h4 class=" modal-title">Log In</h4>
+                     </div>
+
+                 
+                <div class="modal-body">
+
+                    <form id="Login Form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class=" input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input class=" form-control" type="text" name="Email" id="LogEmail" placeholder="Email" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class=" input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input class=" form-control" type="password" name="password" id="password" placeholder="Password" />
+                            </div>
+                        </div>
+
+                    </form>
+                    <button class="btn btn-info form-control" type="submit" onclick="LogIn()"><i class="glyphicon glyphicon-log-in">Log In</i></button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+        }
+        
+        
+ <script>
+     function SignIn() {
+         $("#myModal").modal();
+     }
+        </script>
+
+
+        
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
 
 
 </body>
