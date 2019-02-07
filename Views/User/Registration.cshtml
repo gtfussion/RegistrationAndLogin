@@ -22,8 +22,7 @@
         }
     </script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    
     <!-- Meta tag Keywords -->
     <!-- css files -->
     <link rel="stylesheet" href="~/eventregister1/css/style.css" type="text/css" media="all" />
@@ -57,7 +56,7 @@
 
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                       
+                        <li>@Html.ActionLink("Log In", "LogIn", "user")</li>
 
 
                     </ul>
@@ -82,28 +81,28 @@
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="form-group">
-                            
-                            <div class="col-md-10">
-                                <span class="fa fa-user"></span>
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="form-style-agile">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="fa fa-user"></span>
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "pom-agile" } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                           
-                           <div class="col-md-10">
-                             <span class="fa fa-envelope-open"></span>
+                    <div class="form-style-agile">
+                        @Html.LabelFor(model => model.EmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="fa fa-envelope-open"></span>
 
-                             @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
-                              @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "pom-agile" } })
+                            @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
                         if (ViewBag.emailexist != null)
                         {
-                            <div class="form-group">
+                            <div class="form-style-agile">
                                 <div class="col-md-offset-2 col-md-10">
                                     <label class="alert-success">@ViewBag.emailexist</label>
                                 </div>
@@ -111,25 +110,25 @@
 
                         }
 
-                        <div class="form-group">
-                           
-                            <div class="col-md-10">
-                                <span class="fa fa-key"></span>
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            <div class="form-style-agile">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <span class="fa fa-key"></span>
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "pom-agile" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                           
-                            <div class="col-md-10">
-                                <span class="fa fa-key"></span>
-                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "pom-agile", @playholder = "Enter your UserName" } })
-                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            <div class="form-style-agile">
+                                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <span class="fa fa-key"></span>
+                                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "pom-agile", } })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
+                        <div class="form-style-agile">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Submit" class="btn btn-default" />
                             </div>
@@ -147,68 +146,65 @@
 
                     }
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <p style="float:left">Already Have Account</p><a style="float:right;cursor:pointer;color:white"onclick="SignIn()">Sign In</a>
-                        </div>
-                    </div>
-                </div>
+                  </div>
             </div>
         </div>
     </div>
-    @*Design pop up for login form*@
-   
-            
-    <div class="container">
-        <div class="modal fade" id="myModal">
 
-             <div class="modal-dialog">
-              
-               <div class="modal-content">
-                     <div class="modal-header">
-                         <a href="#" class="close" data-dismiss="modal">&times;</a>
-                         <h4 class=" modal-title">Log In</h4>
-                     </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    @*Design pop up for login form
 
-                 
-                <div class="modal-body">
 
-                    <form id="Login Form">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class=" input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input class=" form-control" type="text" name="Email" id="LogEmail" placeholder="Email" />
+           <div class="container">
+               <div class="modal fade" id="myModal">
+
+                    <div class="modal-dialog">
+
+                      <div class="modal-content">
+                            <div class="modal-header">
+                                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                                <h4 class=" modal-title">Log In</h4>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class=" input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input class=" form-control" type="password" name="password" id="password" placeholder="Password" />
-                            </div>
-                        </div>
-
-                    </form>
-                    <button class="btn btn-info form-control" type="submit" onclick="LogIn()"><i class="glyphicon glyphicon-log-in">Log In</i></button>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-        }
-        
-        
- <script>
-     function SignIn() {
-         $("#myModal").modal();
-     }
-        </script>
 
 
-        
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+                       <div class="modal-body">
+
+                           <form id="Login Form">
+                               <div class="form-group">
+                                   <div class="input-group">
+                                       <span class=" input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                       <input class=" form-control" type="text" name="Email" id="LogEmail" placeholder="Email" />
+                                   </div>
+                               </div>
+                               <div class="form-group">
+                                   <div class="input-group">
+                                       <span class=" input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                       <input class=" form-control" type="password" name="password" id="password" placeholder="Password" />
+                                   </div>
+                               </div>
+
+                           </form>
+                           <button class="btn btn-info form-control" type="submit" onclick="LogIn()"><i class="glyphicon glyphicon-log-in">Log In</i></button>
+                       </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+               }
+
+
+        <script>
+            function SignIn() {
+                $("#myModal").modal();
+            }
+               </script>
+
+    *@
+
+
 
 
 </body>
